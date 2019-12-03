@@ -1,0 +1,30 @@
+{
+  "name": "uipx-webpack-plugin",
+  "version": "1.0.0",
+  "description": "UI图片对比插件，帮助开发者更方便地对比 UI 图与实现效果之间的差异",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "kother1",
+    "email": "kother@foxmail.com",
+    "url": "https://github.com/accforgit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accforgit/uipx-webpack-plugin.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/accforgit/uipx-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/accforgit/uipx-webpack-plugin#readme",
+  "keywords": [
+    "webpack",
+    "plugin",
+    "webpack-plugin",
+    "uipx",
+    "uipx-webpack-plugin"
+  ]
+}

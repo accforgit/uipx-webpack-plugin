@@ -1,0 +1,1 @@
+import initRegisterListener from './registerListener';initRegisterListener({})
