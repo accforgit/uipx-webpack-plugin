@@ -1,3 +1,15 @@
+// toast 组件
+let toastEl = document.createElement('p')
+toastEl.className = '__uipx-toast'
+let toastTimer = null
+export function toast (txt) {
+  clearTimeout(toastTimer)
+  toastEl.textContent = txt
+  document.body.appendChild(toastEl)
+  toastTimer = setTimeout(() => {
+    document.body.removeChild(toastEl)
+  }, 1500)
+}
 /**
  * 选择器
  * @param {string} selector 选择器名

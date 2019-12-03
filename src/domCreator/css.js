@@ -235,4 +235,19 @@ export default `
     top: 0;
     transform: translate(-50%, -50%);
   }
+  /* toast组件 */
+  .__uipx-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 80px;
+    max-width: 150px;
+    margin: 0;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 4px;
+    background-color: rgba(109, 111, 115, 0.88);
+    transform: translateX(-50%);
+    z-index: 10010;
+  }
 `

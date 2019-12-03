@@ -1,6 +1,6 @@
 import VARS from './vars'
 import domCreator from './domCreator'
-import { $ } from './util'
+import { $, toast } from './util'
 import handler from './handler'
 
 // 先初始化 dom
@@ -57,9 +57,19 @@ const listenerList = [
   { ele: $('#__uipx-color-list'), listenerName: 'click', fn: delOpacityColorFn }
 ]
 
+const beforeFn = (item, e) => {
+  if (item.ele !== inputFile) {
+    if (!diffImg) {
+      return toast('请选择对比的UI图')
+    }
+  }
+  item.fn.call(item.ele, e)
+}
 // 遍历注册
 listenerList.forEach(item => {
-  item.ele.addEventListener(item.listenerName, item.fn)
+  item.ele.addEventListener(item.listenerName, e => {
+    beforeFn(item, e)
+  })
 })
 
 // #region listener

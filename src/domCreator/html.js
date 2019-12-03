@@ -10,7 +10,7 @@ export default `
     <!-- 点击组 -->
     <div class="__uipx-level __uipx-btn-group">
       <button class="__uipx-btn __uipx-btn-img __uipx-btn-default">
-        更换UI
+        选择UI
         <input type="file" id="__uipx-picfile" name="picFile" />
       </button>
       <button id="__uipx-reset" class="__uipx-btn __uipx-btn-default">位置恢复</button>

@@ -6,7 +6,7 @@ let canvas = null
 
 // 处理 registerListener 的动作，此文件中唯一与 registerListener 进行交互的变量
 export default function handler ({ name, data }) {
-  console.log('initHandler', name, data)
+  console.log('handler', name, data)
   // 处理对比图片 / 反相
   if (name === VARS.imgBase64Name || name === VARS.carpCheckName) {
     return invokeImg.init(data)
