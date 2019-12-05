@@ -1,6 +1,6 @@
 {
   "name": "uipx-webpack-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "UI图片对比插件，帮助开发者更方便地对比 UI 图与实现效果之间的差异",
   "main": "index.js",
   "scripts": {

@@ -23,9 +23,21 @@ export default `
     </div>
     <div class="__uipx-level __uipx-change-opacity">
       调节透明度：
-      <button class="__uipx-icon-cut">-</button>
+      <button class="__uipx-round-btn __uipx-icon-cut">-</button>
       <input type="number" name="cpi" id="__uipx-cpi">
-      <button class="__uipx-icon-add">+</button>
+      <button class="__uipx-round-btn __uipx-icon-add">+</button>
+    </div>
+    <!-- 微调 -->
+    <div class="__uipx-level __uipx-micro-box">
+      位置微调：
+      <div class="__uipx-micro-content">
+        <button class="__uipx-round-btn __uipx-micro-top" title="点击上移1px">↑</button>
+        <p class="__uipx-micro-line">
+          <button class="__uipx-round-btn __uipx-micro-left" title="点击左移1px">←</button>
+          <button class="__uipx-round-btn __uipx-micro-right" title="点击右移1px">→</button>
+        </p>
+        <button class="__uipx-round-btn __uipx-micro-bottom" title="点击下移1px">↓</button>
+      </div>
     </div>
     <!-- 需要完全透明的颜色值 -->
     <div class="__uipx-level __uipx-shear-color">

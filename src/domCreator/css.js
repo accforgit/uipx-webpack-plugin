@@ -51,12 +51,34 @@ export default `
     margin-bottom: 16px;
   }
   #__uipx-img-box {
+    position: relative;
     font-size: 0;
     text-align: center;
   }
   #__uipx-img-box #__uipx-img {
     max-width: 200px;
     max-height: 200px;
+  }
+  .__uipx-img-del {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+    background-color: rgba(0,0,0,.3);
+    transition: opacity .3s;
+  }
+  .__uipx-img-del-txt {
+    font-size: 16px;
+    color: #fff;
+  }
+  .__uipx-img-del:hover {
+    opacity: 1;
   }
   /* 管理需要完全透明的颜色值 */
   .__uipx-shear-color #__uipx-color-list {
@@ -83,11 +105,25 @@ export default `
     line-height: 26px;
     padding: 0 18px;
     outline: none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
     border: 1px solid rgb(248, 248, 248);
     box-sizing: border-box;
     font-size: 13px;
     background-color: rgb(248, 248, 248);
     border-radius: 26px;
+  }
+  .__uipx-round-btn {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    text-align: center;
+    outline: none;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff5555;
   }
   .__uipx-btn-default {
     color: #fff;
@@ -125,15 +161,6 @@ export default `
     outline: none;
     -moz-appearance: textfield;
   }
-  .__uipx-icon-add, .__uipx-icon-cut {
-    width: 24px;
-    height: 24px;
-    outline: none;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    background-color: #ff5555;
-  }
   /* 透明色值 */
   .__uipx-shear-title {
     display: flex;
@@ -155,6 +182,40 @@ export default `
     border-radius: 12px;
     border: none;
     outline: none;
+  }
+  /* 微调按钮 */
+  .__uipx-micro-box {
+    display: flex;
+    align-items: center;
+  }
+  .__uipx-micro-content {
+    position: relative;
+    width: 150px;
+    text-align: center;
+  }
+  .__uipx-micro-content::before, .__uipx-micro-content::after {
+    position: absolute;
+    content: '';
+    background-color: #ff5555;
+  }
+  .__uipx-micro-content::before {
+    top: 50%;
+    left: 30px;
+    right: 30px;
+    height: 1px;
+  }
+  .__uipx-micro-content::after {
+    top: 30px;
+    bottom: 30px;
+    left: 50%;
+    width: 1px;
+  }
+  .__uipx-micro-content button:hover {
+    cursor: pointer;
+  }
+  .__uipx-micro-line {
+    display: flex;
+    justify-content: space-between;
   }
   /* 标尺相关 */
   #__uipx-staff-gauge {

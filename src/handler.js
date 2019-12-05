@@ -1,6 +1,7 @@
 import VARS from './vars'
 import LinePositionManage from './LinePositionManage'
 
+const clienW = document.documentElement.clientWidth || document.body.clientWidth
 // 覆盖在页面上层进行对比的 canvas元素的 handle
 let canvas = null
 
@@ -32,6 +33,10 @@ export default function handler ({ name, data }) {
     [VARS.staffGaugeName] () {
       // 标尺
       staffGauge.change(data)
+    },
+    [VARS.microActionName] () {
+      // 位置微调
+      microAction(data)
     }
   }
   const fn = rqMap[name]
@@ -49,19 +54,22 @@ const invokeImg = {
     const img = document.createElement('img')
     img.src = bgData.base64
     img.onload = () => {
-      canvas.width = img.width
-      canvas.height = img.height
-      ctx.clearRect(0, 0, img.width, img.height)
-      ctx.drawImage(img, 0, 0)
+      const scale = img.width / clienW
+      const height = img.height / scale
+      canvas.width = clienW
+      canvas.height = height
+      canvas.style.width = clienW + 'px'
+      canvas.style.height = height + 'px'
+      ctx.clearRect(0, 0, clienW, height)
+      ctx.drawImage(img, 0, 0, clienW, height)
       const imgData = ctx.getImageData(0, 0, img.width, img.height)
       this.pixels = imgData.data
       // 透明
       this.setOpacity()
       // 反相
       this.setColorReverse()
-      ctx.clearRect(0, 0, img.width, img.height)
+      ctx.clearRect(0, 0, clienW, height)
       ctx.putImageData(imgData, 0, 0)
-      canvas.style.width = document.documentElement.clientWidth + 'px'
       this.container.appendChild(canvas)
     }
   },
@@ -165,6 +173,10 @@ const followCheckScroll = {
   // 是否设置了 canvas 跟随页面滚动
   isFollowPage: false,
   baseScroll: 0,
+  reset () {
+    this.isFollowPage = false
+    this.baseScroll = 0
+  },
   change (v) {
     this.isFollowPage = v
     canvasPosition.correctXY()
@@ -210,6 +222,12 @@ const staffGauge = {
     }
     this.rulerH.changeVisible(isCheck)
   }
+}
+
+// 位置微调
+function microAction ({ x = 0, y = 0 }) {
+  canvasPosition.moveBy(x, y)
+  canvasPosition.correctXY()
 }
 
 // 调节 canvas整体的透明度
