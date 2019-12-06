@@ -5,6 +5,8 @@ export default {
   diffCanvasId: '__uipx-canvas',
   // popup.js 给 cs.js 传递的对比图片 base64 数据体的 name 属性值
   imgBase64Name: 'imgBase64',
+  // popup.js 给 cs.js 传递的 指定canvas的尺寸是否使用原UI图的 数据体的 name 属性值
+  sizeCheckName: 'sizeCheck',
   // popup.js 给 cs.js 传递的 指定canvas跟随页面滚动的 数据体的 name 属性值
   followCheckName: 'followCheck',
   // popup.js 给 cs.js 传递的 canvas 位置坐标 reset 数据体的 name 属性值

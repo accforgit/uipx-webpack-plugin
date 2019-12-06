@@ -9,7 +9,7 @@ let canvas = null
 export default function handler ({ name, data }) {
   console.log('handler', name, data)
   // 处理对比图片 / 反相
-  if (name === VARS.imgBase64Name || name === VARS.carpCheckName) {
+  if (name === VARS.imgBase64Name || name === VARS.carpCheckName || name === VARS.sizeCheckName) {
     return invokeImg.init(data)
   }
   // 下面的情况都需要 canvas 已经初始化完毕才可以正常执行
@@ -54,23 +54,29 @@ const invokeImg = {
     const img = document.createElement('img')
     img.src = bgData.base64
     img.onload = () => {
-      const scale = img.width / clienW
+      const width = bgData.isUseUISize ? img.width : clienW
+      const isSizeChanged = canvas.style.width.slice(0, -2) !== String(width)
+      const scale = img.width / width
       const height = img.height / scale
-      canvas.width = clienW
+      canvas.width = width
       canvas.height = height
-      canvas.style.width = clienW + 'px'
+      canvas.style.width = width + 'px'
       canvas.style.height = height + 'px'
-      ctx.clearRect(0, 0, clienW, height)
-      ctx.drawImage(img, 0, 0, clienW, height)
-      const imgData = ctx.getImageData(0, 0, img.width, img.height)
+      ctx.clearRect(0, 0, width, height)
+      ctx.drawImage(img, 0, 0, width, height)
+      const imgData = ctx.getImageData(0, 0, width, height)
       this.pixels = imgData.data
       // 透明
       this.setOpacity()
       // 反相
       this.setColorReverse()
-      ctx.clearRect(0, 0, clienW, height)
+      ctx.clearRect(0, 0, width, height)
       ctx.putImageData(imgData, 0, 0)
       this.container.appendChild(canvas)
+      if (isSizeChanged) {
+        // 位置恢复，切换 sizeCheckName 的时候元素可能完全跑到页面外去了，所以这里统一恢复一下位置
+        canvasPosition.reset()
+      }
     }
   },
   // 设置透明

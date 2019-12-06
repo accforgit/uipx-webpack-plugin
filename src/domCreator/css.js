@@ -97,13 +97,13 @@ export default `
   #__uipx-canvas {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 9998;
   }
   /* 通用按钮 */
   .__uipx-btn {
     line-height: 26px;
-    padding: 0 18px;
+    padding: 0 16px;
     outline: none;
     -webkit-tap-highlight-color:rgba(0,0,0,0);
     border: 1px solid rgb(248, 248, 248);

@@ -17,6 +17,7 @@ export default `
     </div>
     <!-- 点选组 -->
     <div class="__uipx-level __uipx-check-group">
+      <button id="__uipx-size-check" class="__uipx-btn">使用原始尺寸</button>
       <button id="__uipx-follow-check" class="__uipx-btn">同步滚动</button>
       <button id="__uipx-carp-check" class="__uipx-btn">反相</button>
       <button id="__uipx-sg-check" class="__uipx-btn">标尺</button>

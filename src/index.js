@@ -1,1 +1,3 @@
-import initRegisterListener from './registerListener';initRegisterListener({})
+import UIPX from './registerListener';
+
+window.UIPX = UIPX

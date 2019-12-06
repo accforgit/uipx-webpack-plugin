@@ -3,9 +3,6 @@ import domCreator from './domCreator'
 import { $, toast } from './util'
 import handler from './handler'
 
-// 先初始化 dom
-domCreator()
-
 // plugin 传入的 options
 let pluginOptions = null
 
@@ -15,6 +12,8 @@ let diffImg = null
 let opacityColorList = []
 // 反相
 let isColorReverse = false
+// canvas 尺寸，是否使用UI设计稿原图尺寸，默认使用宽度铺满设备宽度，长度等比例缩放的尺寸
+let isUseUISize = false
 // 按钮选中的样式class
 const btnActiveClassName = '__uipx-btn-active'
 // 透明色值的 li.className
@@ -27,57 +26,74 @@ const microRightClassName = '__uipx-micro-right'
 const microBottomClassName = '__uipx-micro-bottom'
 const microLeftClassName = '__uipx-micro-left'
 
-const inputFile = $('#__uipx-picfile')
-const img = $('#__uipx-img')
-const cpi = $('#__uipx-cpi')
-const colorList = $('#__uipx-color-list')
+let inputFile = null
+let img = null
+let cpi = null
+let colorList = null
 
 // #region init
 export default function initRegisterListener (options) {
   pluginOptions = options || {}
   diffImg = pluginOptions.diffImg
+  isUseUISize = pluginOptions.isUseUISize
+  initPanelDom()
   initDomStatus()
   showPic()
+  addListener()
 }
 // #endregion
 
-// 注册监听事件
-const listenerList = [
-  // 选择上传对比的 UI 图
-  { ele: inputFile, listenerName: 'change', fn: inputFileFn },
-  // canvas 整体透明度调节
-  { ele: cpi, listenerName: 'change', fn: cpiFn },
-  { ele: $('.__uipx-icon-add')[0], listenerName: 'click', fn () { cpiUpdate(1) } },
-  { ele: $('.__uipx-icon-cut')[0], listenerName: 'click', fn () { cpiUpdate(-1) } },
-  // canvas 滑动后位置恢复
-  { ele: $('#__uipx-reset'), listenerName: 'click', fn: resetPositionFn },
-  // canvas 跟随页面滚动
-  { ele: $('#__uipx-follow-check'), listenerName: 'click', fn: followCheckFn },
-  // canvas 反相
-  { ele: $('#__uipx-carp-check'), listenerName: 'click', fn: carpCheckFn },
-  // 标尺
-  { ele: $('#__uipx-sg-check'), listenerName: 'click', fn: sgCheckFn },
-  // 管理需要完全透明的颜色值
-  { ele: $('#__uipx-add-color-btn'), listenerName: 'click', fn: addOpacityColorFn },
-  { ele: $('#__uipx-color-list'), listenerName: 'click', fn: delOpacityColorFn },
-  // canvas 位置微调
-  { ele: $('.__uipx-micro-content')[0], listenerName: 'click', fn: microActionFn }
-]
-
-const beforeFn = (item, e) => {
-  if (item.ele !== inputFile) {
-    if (!diffImg) {
-      return toast('请选择对比的UI图')
-    }
-  }
-  item.fn.call(item.ele, e)
+// 初始化面板DOM
+function initPanelDom () {
+  // 先初始化 dom
+  domCreator()
+  inputFile = $('#__uipx-picfile')
+  img = $('#__uipx-img')
+  cpi = $('#__uipx-cpi')
+  colorList = $('#__uipx-color-list')
 }
-// 遍历注册
-listenerList.forEach(item => {
-  item.ele.addEventListener(item.listenerName, e => {
-    beforeFn(item, e)
+// 注册事件
+function addListener () {
+  // 注册监听事件
+  const listenerList = [
+    // 选择上传对比的 UI 图
+    { ele: inputFile, listenerName: 'change', fn: inputFileFn },
+    // canvas 整体透明度调节
+    { ele: cpi, listenerName: 'change', fn: cpiFn },
+    { ele: $('.__uipx-icon-add')[0], listenerName: 'click', fn () { cpiUpdate(1) } },
+    { ele: $('.__uipx-icon-cut')[0], listenerName: 'click', fn () { cpiUpdate(-1) } },
+    // canvas 滑动后位置恢复
+    { ele: $('#__uipx-reset'), listenerName: 'click', fn: resetPositionFn },
+    // canvas 的尺寸是否使用原图的
+    { ele: $('#__uipx-size-check'), listenerName: 'click', fn: sizeCheckFn },
+    // canvas 跟随页面滚动
+    { ele: $('#__uipx-follow-check'), listenerName: 'click', fn: followCheckFn },
+    // canvas 反相
+    { ele: $('#__uipx-carp-check'), listenerName: 'click', fn: carpCheckFn },
+    // 标尺
+    { ele: $('#__uipx-sg-check'), listenerName: 'click', fn: sgCheckFn },
+    // 管理需要完全透明的颜色值
+    { ele: $('#__uipx-add-color-btn'), listenerName: 'click', fn: addOpacityColorFn },
+    { ele: $('#__uipx-color-list'), listenerName: 'click', fn: delOpacityColorFn },
+    // canvas 位置微调
+    { ele: $('.__uipx-micro-content')[0], listenerName: 'click', fn: microActionFn }
+  ]
+
+  const beforeFn = (item, e) => {
+    if (item.ele !== inputFile) {
+      if (!diffImg) {
+        return toast('请选择对比的UI图')
+      }
+    }
+    item.fn.call(item.ele, e)
+  }
+  // 遍历注册
+  listenerList.forEach(item => {
+    item.ele.addEventListener(item.listenerName, e => {
+      beforeFn(item, e)
+    })
   })
-})
+}
 
 // #region listener
 // 选择上传对比的 UI 图
@@ -108,6 +124,12 @@ function cpiUpdate (step) {
 // canvas 滑动后位置恢复
 function resetPositionFn () {
   handler({ name: VARS.canvasPResetName })
+}
+// canvas 的尺寸是否使用原图的
+function sizeCheckFn () {
+  this.classList.toggle(btnActiveClassName)
+  isUseUISize = this.classList.contains(btnActiveClassName)
+  imgHandle(VARS.sizeCheckName)
 }
 // canvas 跟随页面滚动
 function followCheckFn () {
@@ -232,7 +254,8 @@ async function imgHandle (name = VARS.imgBase64Name) {
     data: {
       base64: diffImg,
       opacityColorList,
-      isColorReverse
+      isColorReverse,
+      isUseUISize
     }
   })
 }
@@ -245,4 +268,3 @@ function showPic () {
   // 进行图像处理
   imgHandle()
 }
-
