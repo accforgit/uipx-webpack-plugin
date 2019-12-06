@@ -14,8 +14,27 @@ UI图片对比插件，帮助开发者更方便地对比 UI 图与实现效果�
 
 ## 安装
 
+### npm
+
 ```
 npm install uipx-webpack-plugin -D
+```
+
+### 外链
+
+可以直接通过外链的方式使用：
+```html
+<!-- 需要在 body 元素中或者后面加载 -->
+<script src="http://accforgit.github.io/lib/uipx/uipx.min.js"></script>
+<script>
+	UIPX({
+    diffImg: 'http://example.com/example.png',
+    opacityColorList: [
+      [255, 255, 255]
+    ]
+  });
+</script>
+</html>
 ```
 
 ## Options

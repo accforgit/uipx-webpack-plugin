@@ -35,7 +35,6 @@ let colorList = null
 export default function initRegisterListener (options) {
   pluginOptions = options || {}
   diffImg = pluginOptions.diffImg
-  isUseUISize = pluginOptions.isUseUISize
   initPanelDom()
   initDomStatus()
   showPic()
@@ -190,7 +189,7 @@ function initDomStatus () {
   initColorItem()
 }
 
-// 透明色值
+// 初始化透明色值
 function initColorItem () {
   if (pluginOptions.opacityColorList) {
     opacityColorList = pluginOptions.opacityColorList
