@@ -190,7 +190,7 @@ export default `
   }
   .__uipx-micro-content {
     position: relative;
-    width: 150px;
+    width: 85px;
     text-align: center;
   }
   .__uipx-micro-content::before, .__uipx-micro-content::after {
@@ -216,6 +216,7 @@ export default `
   .__uipx-micro-line {
     display: flex;
     justify-content: space-between;
+    margin:0;
   }
   /* 标尺相关 */
   #__uipx-staff-gauge {
@@ -311,4 +312,4 @@ export default `
     transform: translateX(-50%);
     z-index: 10010;
   }
-`
+`;

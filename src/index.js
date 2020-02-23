@@ -1,3 +1,2 @@
 import UIPX from './registerListener';
-
-window.UIPX = UIPX
+window.UIPX = UIPX;

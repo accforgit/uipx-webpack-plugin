@@ -2,7 +2,7 @@ export default `
   <div id="__uipx-switch">uipx</div>
   <div id="__uipx-modal">
     <!-- UI图片 --> 
-    <div class="__uipx-level __uipx-img-box">
+    <div class="__uipx-level __uipx-img-box" style="display: none;">
       <div id="__uipx-img-box">
         <img src="" alt="" id="__uipx-img" style="display: none;">
       </div>
@@ -21,6 +21,7 @@ export default `
       <button id="__uipx-follow-check" class="__uipx-btn">同步滚动</button>
       <button id="__uipx-carp-check" class="__uipx-btn">反相</button>
       <button id="__uipx-sg-check" class="__uipx-btn">标尺</button>
+      <button id="__uipx-click-through-check" class="__uipx-btn">点击穿透</button>
     </div>
     <div class="__uipx-level __uipx-change-opacity">
       调节透明度：
@@ -51,4 +52,4 @@ export default `
     </div>
   </div>
   <div id="__uipx-mask" class="__uipx-mask-overview"></div>
-`
+`;
